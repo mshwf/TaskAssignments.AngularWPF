@@ -1,7 +1,7 @@
 ﻿tapp.controller('tCtrlr', function ($scope, $http, $mdDialog) {
 
     function load() {
-        $http.get('http://localhost:60142/api/Tasks').then(function (response) {
+        $http.get('/api/Tasks').then(function (response) {
             $scope.tasks = response.data;
             $scope.users = [];
         });
@@ -9,7 +9,7 @@
     load();
 
     $scope.saveTask = function (newTask) {
-        $http.post('http://localhost:60142/api/Tasks', newTask).then(function (response) {
+        $http.post('/api/Tasks', newTask).then(function (response) {
 
             if (response.data) {
                 load();
@@ -30,7 +30,7 @@
         };
     }
     function getAllUsers() {
-        $http.get('http://localhost:60142/api/Users').then(function (response) {
+        $http.get('/api/Users').then(function (response) {
             $scope.allUsers = response.data;
         });
     }
@@ -50,7 +50,7 @@
     };
     $scope.deleteTask = function (id) {
 
-        $http.delete('http://localhost:60142/api/Tasks/' + id).then(function (response) {
+        $http.delete('/api/Tasks/' + id).then(function (response) {
             if (response.data) {
                 console.log("The task has been deleted!");
                 load();
@@ -79,8 +79,12 @@
             $scope.taskTitle = $scope.tasks[idx].Title;
         }
     }
-    $http.get('http://localhost:60142/api/Tasks/MyTasks').then(function (response) {
-        $scope.myTasks = response.data;
+    $http.get('/api/Tasks/MyTasks').then(function (response) {
+        console.log("response.data my tasks")
+        console.log(response.data)
+        $scope.myTasks = response.data.data;
+        if ($scope.myTasks == "admin")
+            $scope.youAreAdmin = true;
     })
 });
 

@@ -5,6 +5,8 @@ using TaskAssignments.Core.ViewModels;
 using System;
 using Omu.ValueInjecter;
 using TaskAssignments.Core.Entities;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TaskAssignments.Core.Repositories
 {
@@ -51,10 +53,16 @@ namespace TaskAssignments.Core.Repositories
 
         public static dynamic SelectMyTasks(ApplicationDbContext context, string userId)
         {
+            var usermanager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            if (usermanager.IsInRole(userId, "Admin"))
+            {
+                return new { data = "admin" };
+            }
+
             var myTasks = new List<TaskViewModel>();
             myTasks = context.Users.Include(t => t.Tasks).SingleOrDefault(u => u.Id == userId)?.Tasks.Select(x => new TaskViewModel
             { Id = x.Id, Title = x.Title, Description = x.Description, DueDate = x.DueDate, Status = x.Status }).ToList() ?? myTasks;
-            return myTasks;
+            return new { data = myTasks };
         }
 
         public static bool Delete(ApplicationDbContext context, int id)

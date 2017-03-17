@@ -1,5 +1,5 @@
 ﻿<h2>My Tasks</h2>
-<table class="table table-bordered">
+<table class="table table-bordered" ng-if="!youAreAdmin">
     <tr>
         <th>Task</th>
         <th>Description</th>
@@ -14,3 +14,4 @@
         <td>{{task.Status}}</td>
     </tr>
 </table>
+<h1 ng-if="youAreAdmin">Hey, you are the admin, you only can assign tasks to others.</h1>
