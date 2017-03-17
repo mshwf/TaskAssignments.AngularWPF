@@ -13,8 +13,6 @@
 
             if (response.data) {
                 load();
-                //$scope.users = newTask._Users;
-                //$scope.taskTitle = newTask.Title;
                 $mdDialog.hide();
             }
         })
@@ -52,7 +50,6 @@
 
         $http.delete('/api/Tasks/' + id).then(function (response) {
             if (response.data) {
-                console.log("The task has been deleted!");
                 load();
             }
         })
