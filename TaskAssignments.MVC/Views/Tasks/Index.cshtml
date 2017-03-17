@@ -1,0 +1,86 @@
+﻿<h3>All Tasks</h3>
+
+<table class="table table-condensed">
+    <tr>
+        <th>Task</th>
+        <th>Description</th>
+        <th>Due Date</th>
+        <th>Status</th>
+    </tr>
+    <tr ng-repeat="task in tasks">
+        <td>{{task.Title}}</td>
+        <td>{{task.Description}}</td>
+        <td>{{task.DueDate |  date : "dd/MM/yyyy"}}</td>
+        <td>{{task.Status}}</td>
+        <td>
+            <i class="btn btn-success glyphicon glyphicon-edit" style="font-size:12px" ng-click="showDialog(task)"></i>
+            <i class="btn btn-danger glyphicon glyphicon-trash" style="font-size:12px" ng-click="confirmDelete($event,task.Id)"></i>
+            <i class="btn btn-primary glyphicon glyphicon-user" style="font-size:12px" ng-click="showUsers($index)"></i>
+        </td>
+    </tr>
+</table>
+
+<div style="visibility: hidden">
+    <div class="md-dialog-container" id="taskEdit">
+        <md-dialog style="width:100%; height:100%" layout-padding>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>Edit Task</h2>
+                    <span flex></span>
+                </div>
+            </md-toolbar>
+            <ng-form name="TaskForm">
+                <div layout-gt-sm="row">
+                    <md-input-container>
+                        <label>Task Title</label>
+                        <input name="TaskTitle" ng-model="taskToEdit.Title" required>
+                        <div ng-messages="TaskForm.TaskTitle.$error">
+                            <div ng-message="required">This is required</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Description</label>
+                        <textarea ng-model="taskToEdit.Description" md-maxlength="150" md-select-on-focus></textarea>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Due Date</label>
+                        <md-datepicker style="margin-top: 2px;" ng-model="taskToEdit.DueDate"></md-datepicker>
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>Task Status</label>
+                        <input name="TaskStatus" ng-model="taskToEdit.Status">
+                    </md-input-container>
+                </div>
+                <div layout="row" layout-wrap>
+                    <md-input-container class="md-block" flex-gt-sm="25" flex="45" content-layout-align="center start" ng-repeat="user in allUsers">
+                        <md-checkbox checklist-model="taskToEdit._Users" checklist-value="user">
+                            <div><h4>{{user.UserName}}</h4><span>{{user.Email}}</span></div>
+                        </md-checkbox>
+                    </md-input-container>
+                </div>
+            </ng-form>
+
+            <input class="btn btn-primary" style="width:15%" type="submit" ng-disabled="!TaskForm.$valid" ng-click="saveTask(taskToEdit)" value="Submit" aria-label="submit" />
+
+        </md-dialog>
+    </div>
+</div>
+
+<div ng-show="tgl">
+    <h3>Users Participating In The Task {{taskTitle}}</h3>
+    <table class="table" ng-show="users.length > 0">
+        <tr>
+            <th>User Name</th>
+            <th>Email</th>
+        </tr>
+
+
+        <tr ng-repeat="user in users">
+            <td>{{user.UserName}}</td>
+            <td>{{user.Email}}</td>
+        </tr>
+
+    </table>
+</div>

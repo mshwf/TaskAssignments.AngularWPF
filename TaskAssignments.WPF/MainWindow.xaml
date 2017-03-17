@@ -1,0 +1,40 @@
+﻿<Window x:Class="TaskAssignments.WPF.MainWindow"
+        
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TaskAssignments.WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="462.513" Width="337.842" FontFamily="Verdana" Loaded="Window_Loaded" ResizeMode="NoResize"
+        >
+    <DockPanel Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="29" LastChildFill="False" Margin="0,10,0,0" VerticalAlignment="Top" Width="304">
+        <Menu DockPanel.Dock="Top" Height="22" RenderTransformOrigin="0.472,1.7" Margin="0,0,252,0">
+            <MenuItem Header="Admin?" FontFamily="Verdana" RenderTransformOrigin="2.356,2.765" Width="76" Height="22">
+                <MenuItem x:Name="loginMenu" Header="Log In" Click="login_Click"/>
+                <MenuItem x:Name="logoutMenu" Header="Log Out" Click="logout_Click"/>
+            </MenuItem>
+        </Menu>
+        <Grid x:Name="contentsGrid" Margin="26,53,2,-395" IsEnabled="False" Width="305">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="21*"/>
+                <ColumnDefinition Width="88"/>
+                <ColumnDefinition Width="239*"/>
+                <ColumnDefinition Width="22*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="txtTitle" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="0,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
+            <TextBox x:Name="txtDesc" Grid.Column="2" HorizontalAlignment="Left" Height="45" Margin="0,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
+            <TextBox x:Name="txtStatus" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="0,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
+            <Label x:Name="label1" Content="Description" HorizontalAlignment="Left" Margin="0,58,0,0" VerticalAlignment="Top" Width="79" Height="26" Grid.Column="1"/>
+            <Label x:Name="label2" Content="Status" Margin="3,143,23,0" VerticalAlignment="Top" Height="26" Grid.Column="1"/>
+            <DatePicker x:Name="dtDueTime" Grid.Column="2" HorizontalAlignment="Left" Margin="0,108,0,0" RenderTransformOrigin="-0.812,-3.443" Width="160" Height="24" VerticalAlignment="Top"/>
+            <Label x:Name="label3" Content="Due Date" HorizontalAlignment="Left" Margin="3,106,0,0" VerticalAlignment="Top" Height="26" Width="66" Grid.Column="1"/>
+            <Button x:Name="btnAddTask" Content="Assign Task" HorizontalAlignment="Left" Height="36" Margin="3,280,0,0" VerticalAlignment="Top" Width="79" Click="btnAddTask_Click" Grid.Column="1"/>
+            <ListBox x:Name="listBoxUsers" Grid.Column="2" HorizontalAlignment="Left" Height="142" Margin="0,174,0,0" VerticalAlignment="Top" Width="160" RenderTransformOrigin="-0.317,0.211" SelectionMode="Multiple"/>
+            <Label x:Name="label2_Copy" Content="Users" Margin="3,174,24,0" VerticalAlignment="Top" Height="26" RenderTransformOrigin="0.583,3.911" Grid.Column="1"/>
+            <Label x:Name="label" Content="Task Title" HorizontalAlignment="Left" Margin="4,9,0,0" VerticalAlignment="Top" Width="79" Height="26" Grid.Column="1"/>
+
+        </Grid>
+    </DockPanel>
+</Window>

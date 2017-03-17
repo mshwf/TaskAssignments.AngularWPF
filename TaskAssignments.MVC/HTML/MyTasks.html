@@ -1,0 +1,16 @@
+﻿<h2>My Tasks</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>Task</th>
+        <th>Description</th>
+        <th>Due Date</th>
+        <th>Status</th>
+    </tr>
+
+    <tr ng-repeat="task in myTasks">
+        <td>{{task.Title}}</td>
+        <td>{{task.Description}}</td>
+        <td>{{task.DueDate.ToShortDateString()}}</td>
+        <td>{{task.Status}}</td>
+    </tr>
+</table>
