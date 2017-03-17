@@ -13,22 +13,22 @@ namespace UsersAndRolesMVC.Controllers
     [RoutePrefix("api/Tasks")]
     public class TasksApiController : BaseApiController
     {
-        [HttpGet, Route("")]
+        [HttpGet, Route(""), Authorize(Roles = "Admin")]
         public List<TaskViewModel> GetAll()
         {
             return TasksRepository.SelectAll(Context);
         }
-        [HttpPost, Route("")]
+        [HttpPost, Route(""), Authorize(Roles = "Admin")]
         public bool Post(TaskViewModel task)
         {
             return TasksRepository.Update(Context, task);
         }
-        [HttpDelete, Route("{id}")]
+        [HttpDelete, Route("{id}"), Authorize(Roles = "Admin")]
         public bool Delete(int id)
         {
             return TasksRepository.Delete(Context, id);
         }
-        [HttpGet, Route("MyTasks")]
+        [HttpGet, Route("MyTasks"), Authorize]
         public dynamic GetMyTasks()
         {
             string userId = User.Identity.GetUserId();

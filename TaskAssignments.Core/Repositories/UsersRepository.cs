@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
+using System.Linq;
 using TaskAssignments.Core.Entities;
 using TaskAssignments.Core.ViewModels;
 
@@ -8,7 +11,16 @@ namespace TaskAssignments.Core.Repositories
     {
         public static dynamic GetAll(ApplicationDbContext context)
         {
-            var users = (from u in context.Users select new UserViewModel { Id = u.Id, Email=u.Email, UserName=u.UserName }).ToList();
+            //getting all users not in admin role, so that the app administrator cannot assign tasks to himself
+            var users = new List<UserViewModel>();
+            var usermanager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            foreach (var user in context.Users)
+            {
+                if (!usermanager.IsInRole(user.Id, "Admin"))
+                {
+                    users.Add(new UserViewModel { Id = user.Id, UserName = user.UserName, Email = user.Email });
+                }
+            }
             return users;
         }
     }

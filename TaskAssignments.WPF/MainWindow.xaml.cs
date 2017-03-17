@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaskAssignments.Core.Entities;
+using TaskAssignments.Core.Repositories;
+using TaskAssignments.Core.ViewModels;
 
 namespace TaskAssignments.WPF
 {
@@ -45,7 +47,7 @@ namespace TaskAssignments.WPF
                     Status = txtStatus.Text,
                     Users = new List<ApplicationUser>()
                 };
-                var selectedIds = listBoxUsers.SelectedItems.Cast<ApplicationUser>().Select(u => u.Id);
+                var selectedIds = listBoxUsers.SelectedItems.Cast<UserViewModel>().Select(u => u.Id);
                 SelectedUsers(selectedIds, ut);
                 ctx.Tasks.Add(ut);
                 ctx.SaveChanges();
@@ -90,7 +92,7 @@ namespace TaskAssignments.WPF
                 contentsGrid.IsEnabled = true;
                 logoutMenu.IsEnabled = true;
                 loginMenu.IsEnabled = false;
-                listBoxUsers.ItemsSource = ctx.Users.ToList();
+                listBoxUsers.ItemsSource = UsersRepository.GetAll(ctx);
                 listBoxUsers.DisplayMemberPath = "UserName";
                 listBoxUsers.SelectedValuePath = "Id";
                 listBoxUsers.UnselectAll();

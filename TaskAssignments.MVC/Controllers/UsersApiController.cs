@@ -6,7 +6,7 @@ namespace UsersAndRolesMVC.Controllers
     [RoutePrefix("api/Users")]
     public class UsersApiController : BaseApiController
     {
-        [HttpGet, Route("")]
+        [HttpGet, Route(""), Authorize(Roles = "Admin")]
         public dynamic GetAll()
         {
             return UsersRepository.GetAll(Context);
